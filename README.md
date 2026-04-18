@@ -4,6 +4,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Rust](https://img.shields.io/badge/Rust-1.75%2B-orange.svg)](https://www.rust-lang.org)
+[![GitHub Sponsors](https://img.shields.io/badge/Sponsor-%E2%9D%A4-red?logo=GitHub)](https://github.com/sponsors/anturui)
+[![GPU](https://img.shields.io/badge/GPU-NVIDIA-green?logo=nvidia)](https://nvidia.com)
 
 > We replaced `if (balance >= amount)` with matrix multiplication.  
 > **Result: 37x faster validation on GPU.**
