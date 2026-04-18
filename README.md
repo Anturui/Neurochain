@@ -108,6 +108,20 @@ cargo run --release -p gpu-consensus-bench
 
 📧 Contact: [Open an issue](https://github.com/yourname/neurochain/issues) | [LinkedIn](www.linkedin.com/in/aleksey-kolychev-4ba700337)
 
+## 💖 Support NeuroChain
+
+NeuroChain is an independent open-source research project. We are currently seeking:
+
+- **GPU cluster access** (10x H100/A100) for multi-node testnet
+- **Grants** (Ethereum Foundation, Web3 Foundation, NVIDIA Inception)
+- **Community donations** to fund core development
+
+Crypto wallets are listed in [`DONATE.md`](./DONATE.md).
+
+### Current Funding Goal
+> **Phase 1 Testnet**: $15,000 — 6 months of GPU cloud rental + 1 ML engineer part-time  
+> **Progress**: $0 / $15,000 (just started)
+
 ## 📜 License
 
 MIT — see [LICENSE](LICENSE)
