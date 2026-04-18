@@ -1,47 +1,47 @@
+
 # Neural Contracts (State-Transition Nets)
 
 ## Pitch
 
-Смарт-контракт заменяется **фиксированной нейросетью**, веса которой хранятся 
-в глобальном состоянии (Merkle root). Исполнение = один forward pass на GPU.
+A smart contract is replaced by a **fixed-architecture neural network** whose weights are stored in the global state (Merkle root). Execution = one GPU forward pass.
 
-## Почему это работает
+## Why This Works
 
-| Параметр | EVM Bytecode | Neural Contract |
-|----------|-------------|-----------------|
-| Параллелизм | Последовательный стек | Параллельное умножение матриц |
-| Ветвления | `JUMPI` → warp divergence | Только ReLU (нет ветвлений) |
-| Batch 100K | Секунды | ~1 ms |
+| Parameter | EVM Bytecode | Neural Contract |
+|-----------|-------------|-----------------|
+| Parallelism | Sequential stack ops | Parallel matrix multiplication |
+| Branching | `JUMPI` → warp divergence | ReLU only (no branches) |
+| Batch 100K | Seconds | ~1 ms |
 
-## Формат
+## Format
 
 ```rust
 // Input = state (512 bytes) + call_data (488 bytes) = 1000 bytes
-// Нормализуется в FP32 тензор [1000]
+// Normalized into FP32 tensor [1000]
 
 // Output = new_state (512 bytes) + flags (8 bytes) + padding (480 bytes)
-// = 1000 bytes, записывается обратно в state
+// = 1000 bytes, written back to state
 ```
 
-## Архитектура
+## Architecture
 
-Все Neural Programs делят **одну топологию** (гарантия детерминизма):
+All Neural Programs share the **same topology** (determinism guarantee):
 
 ```
 Input[1000] → Linear[512] → ReLU → Linear[1000] → Output[1000]
 ```
 
-Отличаются только **весами** (как EVM: один набор инструкций, разные программы).
+Only **weights differ** between contracts (like EVM: same instruction set, different programs).
 
-## Гарантии детерминизма
+## Determinism Guarantees
 
-- Фиксированная топология (без NAS на уровне контракта)
-- Веса коммитятся в state root
-- Одинаковый результат на всех GPU валидаторов
+- Fixed topology (no NAS at contract level)
+- Weights committed to state root
+- Identical output on every validator GPU
 
-## Пример: Token Transfer
+## Example: Token Transfer
 
-Классика:
+Classical:
 ```solidity
 if (balance[from] >= amount) {
     balance[from] -= amount;
@@ -49,15 +49,14 @@ if (balance[from] >= amount) {
 }
 ```
 
-Нейро-эквивалент:
+Neural equivalent:
 - Input: `[balance_from, balance_to, amount, ...padding]`
-- Сеть учит (или инициализируется на) отображение вычитания/сложения
+- Network learns (or is initialized to) a subtraction/addition map
 - Output: `[new_balance_from, new_balance_to, success_flag, ...]`
 
-Даже для такой простой арифметики NN быстрее на GPU при batch ≥10K, 
-потому что SIMD FMA utilization побеждает branch divergence.
+Even for this simple arithmetic, the NN is faster on GPU at batch ≥10K because SIMD FMA utilization beats branch divergence.
 
-## Статус
+## Status
 
 - [x] Proof-of-concept runtime (CUDA, inline NVRTC)
 - [x] Batch forward pass benchmark
