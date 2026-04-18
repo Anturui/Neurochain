@@ -554,6 +554,7 @@ version = "0.19.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f071cd6a7b5d51607df76aa2d426aaabc7a74bc6bdb885b8afa63a880572ad9b"
 dependencies = [
+ "half",
  "libloading",
 ]
 
@@ -1054,6 +1055,9 @@ checksum = "6ea2d84b969582b4b1864a92dc5d27cd2b77b622a8d79306834f1be5ba20d84b"
 dependencies = [
  "cfg-if",
  "crunchy",
+ "num-traits",
+ "rand 0.9.3",
+ "rand_distr 0.5.1",
  "zerocopy",
 ]
 
@@ -2095,6 +2099,15 @@ dependencies = [
  "thiserror 1.0.69",
  "tokio",
  "tracing",
+]
+
+[[package]]
+name = "neural-contracts"
+version = "0.1.0"
+dependencies = [
+ "cudarc",
+ "half",
+ "rand 0.10.1",
 ]
 
 [[package]]

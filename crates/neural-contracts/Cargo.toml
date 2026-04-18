@@ -1,0 +1,13 @@
+[package]
+name = "neural-contracts"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+cudarc = { version = "0.19.4", features = ["f16", "cuda-13020"] }
+half = { version = "2.7.1", features = ["num-traits"] }
+rand = "0.10.1"
+
+[[bin]]
+name = "neural-contracts"
+path = "src/main.rs"

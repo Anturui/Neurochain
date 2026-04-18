@@ -32,21 +32,44 @@ Transaction [1000 bytes] → FP16 Tensor → NN Forward → [valid, valid, valid
 **Why it works**: GPUs prefer 1000 FMA operations over 1000 branches.  
 Even for simple arithmetic, neural networks win on parallelism.
 
+## 🧠 Neural Contracts (NEW)
+
+Traditional smart contracts run bytecode with branches (`if/else`, `JUMPI`).  
+NeuroChain replaces contract logic with **State-Transition Nets (STN)** — 
+fixed-topology neural networks executed as a single GPU forward pass.
+
+| Metric | Value |
+|--------|-------|
+| Architecture | 1000 → 512 (ReLU) → 1000 |
+| Batch 100K | **14.5 ms** |
+| Throughput | **6.9M state transitions/sec** |
+| vs Classical GPU | **~12x faster** (no branch divergence) |
+
+[Read neural contracts deep-dive →](docs/07-neural-contracts.md)
+
 ## 📁 Repository Structure
 
 ```
 crates/
-├── gpu-consensus-bench/     # CUDA benchmarks (37x speedup demo)
-│   ├── src/cuda_nn.rs       # Neural validator
-│   └── src/validator/       # Classical baseline
-└── neural-consensus/        # 10-validator BFT (WIP)
+├── gpu-consensus-bench/     # CUDA benchmarks: 37x speedup validation demo
+│   ├── src/cuda_nn.rs       # Neural validator (NVRTC kernels)
+│   └── src/validator/       # Classical baseline vs Neural
+├── neural-consensus/        # 10-validator BFT network (WIP)
+│   ├── src/bft.rs           # Byzantine fault tolerance
+│   └── src/validator_node.rs
+└── neural-contracts/        # State-Transition Nets (STN)
+    ├── src/contract.rs      # NeuralProgram: on-chain weights
+    ├── src/runtime.rs       # GPU forward pass executor
+    └── src/bench.rs         # 12x speedup contract benchmarks
 
 docs/
 ├── 01-introduction.md       # Start here
 ├── 02-architecture.md       # System design
 ├── 03-consensus.md          # BFT + leader election
 ├── 04-nas.md                # Continuous architecture search
-└── 05-gpu-validation.md     # Why NN beats classical
+├── 05-gpu-validation.md     # Why NN beats classical on GPU
+├── 06-roadmap.md            # Plans + seeking sponsors
+└── 07-neural-contracts.md   # Neural Contracts deep-dive
 ```
 
 ## 🏃 Quick Start
