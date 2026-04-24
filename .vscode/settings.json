@@ -1,0 +1,10 @@
+{
+    "rust-analyzer.cargo.extraEnv": {
+        "PATH": "/usr/local/cuda-12.8/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "NVCC": "/usr/local/cuda-12.8/bin/nvcc"
+    },
+    "terminal.integrated.env.linux": {
+        "PATH": "/usr/local/cuda-12.8/bin:${env:PATH}",
+        "LD_LIBRARY_PATH": "/usr/local/cuda-12.8/lib64:/usr/lib/wsl/lib:${env:LD_LIBRARY_PATH}"
+    }
+}
