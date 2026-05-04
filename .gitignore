@@ -29,3 +29,7 @@ crates/hard-kernel-bench copy/weights
 /crates/contract-kernel-bench/weights
 
 /.gitignore
+
+/crates/validator-kernel-bench/weights
+
+dataset.bin
