@@ -18,3 +18,14 @@ scripts
 tests
 logs
 crates/hard-kernel-bench/weights
+crates/hard-kernel-bench copy/weights
+
+/crates/hard-kernel-bench_contract
+/crates/neural-contracts
+/crates/contracts-fast-kernel-bench
+
+/crates/contract-kernel-bench/obsolete
+/crates/contract-kernel-bench/logs
+/crates/contract-kernel-bench/weights
+
+/.gitignore

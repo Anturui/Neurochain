@@ -1,0 +1,35 @@
+[package]
+name = "contract-kernel-bench"
+version = "0.1.0"
+edition = "2021"
+build = "build.rs"
+
+[dependencies]
+
+# Random for stubs
+rand = "0.10.1"
+serde_bytes = "0.11" 
+zip = "8.6.0"
+byteorder = "1.5.0"
+half = "2.7.1"
+
+# [dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+
+# cudarc = { version = "0.19.4", features = ["cuda-13020"] }
+# rand = "0.10.1"
+ndarray = { version = "0.17.2", features = ["rayon"] }
+ndarray-rand = "0.16.0"
+rand_distr = "0.6.0"
+
+[build-dependencies]
+cc = "1.2.60"
+
+[[bin]]
+name = "hard-kernel-bench"
+path = "src/main.rs"
+
+[profile.release]
+opt-level = 3
+lto = false
+codegen-units = 1
