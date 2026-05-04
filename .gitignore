@@ -32,4 +32,4 @@ crates/hard-kernel-bench copy/weights
 
 /crates/validator-kernel-bench/weights
 
-dataset.bin
+/dataset.bin
